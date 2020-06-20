@@ -1,19 +1,13 @@
 const express = require('express');
+const path = require('path');
 const stripe = require('stripe')('', { apiVersion: '' });
 const app = express();
-const port = 3000;
+const port = process.env.port || 4002;
 
+app.use(express.static(path.join(__dirname, '../client/build')));
 
-
-app.get('/charge', (req, res) => {
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: 1099,
-    currency: 'usd',
-    // Verify your integration in this guide by including this parameter
-    metadata: { integration_check: 'accept_a_payment' },
-  });
-  console.log(stripe);
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
-
 
 app.listen(port, () => console.log('store running'));
