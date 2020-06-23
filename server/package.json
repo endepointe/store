@@ -4,8 +4,10 @@
   "description": "store",
   "main": "store.js",
   "dependencies": {
+    "bluebird": "^3.7.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "pg-promise": "^10.5.7",
     "stripe": "^8.64.0"
   },
   "devDependencies": {
