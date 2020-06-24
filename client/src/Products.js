@@ -39,21 +39,12 @@ const inventory = [
 const Products = () => {
 
   useEffect(() => {
-    axios.post('/api/populate', {
-      arr: inventory
-    })
-      .then(response => { console.log(response); })
-      .catch((error) => { console.log(error); });
-
-    // axios.get('/api/items')
-    //   .then(response => console.log(response.data))
-    //   .catch(error => console.log(error));
   });
 
   return (
-    <section>
+    <article>
       {inventory.map((p, i) => <Product key={i} id={p.name} price={p.price} />)}
-    </section>
+    </article>
   )
 }
 

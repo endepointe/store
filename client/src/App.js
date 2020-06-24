@@ -11,7 +11,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <Products />
+      <main>
+        <section>
+          <Products />
+        </section>
+      </main>
       {/* cart */}
     </BrowserRouter>
   )
