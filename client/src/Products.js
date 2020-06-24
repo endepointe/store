@@ -1,12 +1,7 @@
 import React from 'react';
 import Product from './Product';
-// each product will be given 
-// unique product details.
-// will vary by the kind of
-// product sold by the store.
 import {
-  useEffect,
-  useState
+  // useEffect,
 } from 'react';
 import axios from 'axios';
 
@@ -36,10 +31,15 @@ const inventory = [
     price: 200
   },
 ];
+
 const Products = () => {
 
-  useEffect(() => {
-  });
+  // useEffect(() => {
+  //   axios.post('/api/populate', {
+  //     arr: inventory 
+  //   }).then(response => console.log(response))
+  //     .catch(error => console.log(error));
+  // });
 
   return (
     <article>
