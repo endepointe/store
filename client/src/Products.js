@@ -14,7 +14,6 @@ const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     flexWrap: 'wrap',
-    marginTop: '8rem'
   }
 }));
 
@@ -35,6 +34,7 @@ const Products = () => {
   return (
     <Container
       className={classes.root}>
+      <CssBaseLine/>
       <Grid container spacing={3}>
         {products.map((product, i) =>
           <Product

@@ -1,3 +1,11 @@
 * {
   font-family: 'Roboto', 'sans-serif';
 }
+
+:root {
+  --navbar-color: #005b9f;
+  --cartbutton-color: #0288d1;
+  --other-color: #5eb8ff;
+}
+/* //https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=455A64
+ */
