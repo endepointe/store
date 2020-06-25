@@ -13,8 +13,8 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 // Routes
 app.use('/api', api);
 
-// app.get('/*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-// });
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
 
 app.listen(port, () => console.log('store running'));
