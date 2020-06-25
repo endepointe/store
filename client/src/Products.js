@@ -1,51 +1,48 @@
 import React from 'react';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import CssBaseLine from '@material-ui/core/CssBaseline';
+import { makeStyles } from '@material-ui/core/styles';
 import Product from './Product';
 import {
-  // useEffect,
+  useEffect,
+  useState
 } from 'react';
 import axios from 'axios';
 
-const inventory = [
-  {
-    name: 'prod1',
-    price: 10
-  },
-  {
-    name: 'prod2',
-    price: 40
-  },
-  {
-    name: 'prod3',
-    price: 55
-  },
-  {
-    name: 'prod4',
-    price: 15
-  },
-  {
-    name: 'prod5',
-    price: 2
-  },
-  {
-    name: 'prod6',
-    price: 200
-  },
-];
+const useStyles = makeStyles(() => ({
+  root: {
+    flexGrow: 1,
+    flexWrap: 'wrap',
+    marginTop: '8rem'
+  }
+}));
 
 const Products = () => {
 
-  // useEffect(() => {
-  //   axios.post('/api/populate', {
-  //     arr: inventory 
-  //   }).then(response => console.log(response))
-  //     .catch(error => console.log(error));
-  // });
+  const classes = useStyles();
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/get-products')
+      .then(response => {
+        setProducts(response.data);
+      })
+      .catch(error => console.log(error));
+  }, []);
 
   return (
-    <article>
-      {inventory.map((p, i) => <Product key={i} id={p.name} price={p.price} />)}
-    </article>
+    <Container
+      className={classes.root}>
+      <Grid container spacing={3}>
+        {products.map((product, i) =>
+          <Product
+            key={i}
+            id={product.name}
+            price={product.price} />)}
+      </Grid>
+    </Container>
   )
 }
-
 export default Products;

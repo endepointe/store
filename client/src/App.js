@@ -10,13 +10,14 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Navbar />
+      <nav>
+        <Navbar />
+      </nav>
       <main>
         <section>
           <Products />
         </section>
       </main>
-      {/* cart */}
     </BrowserRouter>
   )
 }

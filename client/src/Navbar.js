@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import {
   Link
@@ -13,10 +13,10 @@ import {
 
 const useStyles = makeStyles(() => ({
   root: {
-    flexGrow: 1 
+    flexGrow: 1
   },
   nav: {
-    backgroundColor: '#0288d1'
+    backgroundColor: '#005b9f'
   }
 }));
 
