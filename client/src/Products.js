@@ -45,4 +45,5 @@ const Products = () => {
     </Container>
   )
 }
+
 export default Products;

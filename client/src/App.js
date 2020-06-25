@@ -4,11 +4,11 @@ import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import React from 'react';
-import store from './redux/store';
+// import { Provider } from 'react-redux';
+// import store from './redux/store';
 import {
   BrowserRouter,
 } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import Navbar from './Navbar';
 import Products from './Products';
 
@@ -65,34 +65,32 @@ const App = () => {
   const classes = useStyles();
 
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <nav>
-          <Navbar />
-        </nav>
-        <header className={classes.header}>
-          <div className={classes.hero}>
-            <FingerprintIcon style={{ fontSize: 120 }} />
-            <p className={classes.heroMessage}>Highlight Message</p>
-          </div>
-        </header>
-        <main>
-          <h1 className={classes.featuredProducts}>Featured Products</h1>
-          <section>
-            <Products />
-          </section>
-        </main>
-        <footer className={classes.footer}>
-          <Typography variant="h6" align="center" gutterBottom>
-            Endepointe
+    <BrowserRouter>
+      <nav>
+        <Navbar />
+      </nav>
+      <header className={classes.header}>
+        <div className={classes.hero}>
+          <FingerprintIcon style={{ fontSize: 120 }} />
+          <p className={classes.heroMessage}>Highlight Message</p>
+        </div>
+      </header>
+      <main>
+        <h1 className={classes.featuredProducts}>Featured Products</h1>
+        <section>
+          <Products />
+        </section>
+      </main>
+      <footer className={classes.footer}>
+        <Typography variant="h6" align="center" gutterBottom>
+          Endepointe
           </Typography>
-          <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-            EndeTemplate Store
+        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
+          EndeTemplate Store
         </Typography>
-          <Copyright />
-        </footer>
-      </BrowserRouter>
-    </Provider>
+        <Copyright />
+      </footer>
+    </BrowserRouter>
   )
 }
 

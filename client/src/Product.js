@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { addProduct } from './redux/actions';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -37,7 +35,6 @@ const Product = (props) => {
   const addToCart = (e) => {
     e.preventDefault();
     console.log(`${props.name} added to cart`);
-    console.log(addProduct);
   }
 
   return (
@@ -56,7 +53,4 @@ const Product = (props) => {
   )
 }
 
-export default connect(
-  null,
-  { addProduct }
-)(Product);
+export default Product;

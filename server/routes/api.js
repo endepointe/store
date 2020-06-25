@@ -16,12 +16,12 @@ router.get('/items', (req, res) => {
 ////
 //////
 router.post('/populate', (req, res) => {
-  for (let i = 0; i < req.body.arr.length; ++i) {
-    db.query(`INSERT INTO products VALUES (
-      '${req.body.arr[i].name}',
-      ${req.body.arr[i].price}
-    );`);
-  }
+  // for (let i = 0; i < req.body.arr.length; ++i) {
+  //   db.query(`INSERT INTO products VALUES (
+  //     '${req.body.arr[i].name}',
+  //     ${req.body.arr[i].price}
+  //   );`);
+  // }
   res.status(200).send('next, drop table if not null, else, load table');
 });
 //////
