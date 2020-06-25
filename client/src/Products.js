@@ -34,12 +34,12 @@ const Products = () => {
   return (
     <Container
       className={classes.root}>
-      <CssBaseLine/>
+      <CssBaseLine />
       <Grid container spacing={3}>
         {products.map((product, i) =>
           <Product
             key={i}
-            id={product.name}
+            name={product.name}
             price={product.price} />)}
       </Grid>
     </Container>

@@ -4,7 +4,7 @@ import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import React from 'react';
-// import store from './redux/store';
+import store from './redux/store';
 import {
   BrowserRouter,
 } from 'react-router-dom';
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   heroMessage: {
-    fontSize: '1.2rem', 
+    fontSize: '1.2rem',
   },
   featuredProducts: {
     width: '100%',
@@ -65,15 +65,15 @@ const App = () => {
   const classes = useStyles();
 
   return (
-    // <Provider store={store}>
+    <Provider store={store}>
       <BrowserRouter>
         <nav>
           <Navbar />
         </nav>
         <header className={classes.header}>
           <div className={classes.hero}>
-            <FingerprintIcon style={{fontSize: 120}} /> 
-            <p className={classes.heroMessage}>Highlight Message</p> 
+            <FingerprintIcon style={{ fontSize: 120 }} />
+            <p className={classes.heroMessage}>Highlight Message</p>
           </div>
         </header>
         <main>
@@ -87,12 +87,12 @@ const App = () => {
             Endepointe
           </Typography>
           <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-            EndeTemplate Store 
+            EndeTemplate Store
         </Typography>
           <Copyright />
         </footer>
       </BrowserRouter>
-    // </Provider>
+    </Provider>
   )
 }
 

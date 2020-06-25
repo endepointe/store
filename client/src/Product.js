@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addProduct } from './redux/actions';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -34,22 +36,27 @@ const Product = (props) => {
 
   const addToCart = (e) => {
     e.preventDefault();
-    console.log('item added to cart');
+    console.log(`${props.name} added to cart`);
+    console.log(addProduct);
   }
 
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Paper className={classes.paper}>
         <div className={classes.productImg}></div>
-        <form
-          onSubmit={addToCart}>
-          <p>Item: {props.id}</p>
+        <form>
+          <p>Item: {props.name}</p>
           <p>Price: {props.price}</p>
-          <Button className={classes.button}>Add to cart</Button>
+          <Button
+            onClick={addToCart}
+            className={classes.button}>Add to cart</Button>
         </form>
       </Paper>
     </Grid>
   )
 }
 
-export default Product;
+export default connect(
+  null,
+  { addProduct }
+)(Product);
