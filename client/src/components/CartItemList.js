@@ -4,14 +4,18 @@ import { connect } from 'react-redux';
 import { getCartItems } from '../redux/selectors';
 
 const CartItemList = ({ cartItems }) => (
-  <ul>
-    {cartItems && cartItems.length
-      ? cartItems.map((item, index) => {
-        console.log(item.content.name)
-        return <CartItem key={item.id} item={item} />
-      })
-      : "No cart items"}
-  </ul>
+  <div>
+    <ul>
+      {cartItems && cartItems.length
+        ? cartItems.map((item, index) => {
+          console.log(item.content.name)
+          return <CartItem key={item.id} item={item} />
+        })
+        : "No cart items"}
+    </ul>
+    <button>Continue shopping</buttn>
+    <button>Checkout</button>
+  </div>
 )
 
 // const mapStateToProps = state => {
