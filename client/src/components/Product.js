@@ -1,4 +1,10 @@
-import React from 'react';
+import React,
+{
+  useEffect,
+  useState
+} from 'react';
+import { connect } from 'react-redux';
+import { addProduct } from '../redux/actions';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -30,11 +36,20 @@ const useStyles = makeStyles((theme) => ({
 
 const Product = (props) => {
 
+  const [item, setItem] = useState({});
   const classes = useStyles();
+
+  useEffect(() => {
+    setItem({
+      name: props.name,
+      price: props.price
+    });
+  }, [props.name, props.price]);
 
   const addToCart = (e) => {
     e.preventDefault();
-    console.log(`${props.name} added to cart`);
+    props.addProduct(item);
+    console.log(`${item.name} added to cart`);
   }
 
   return (
@@ -53,4 +68,7 @@ const Product = (props) => {
   )
 }
 
-export default Product;
+export default connect(
+  null,
+  { addProduct }
+)(Product);

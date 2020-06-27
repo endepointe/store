@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
   },
   ul: {
-    display: 'flex', 
+    display: 'flex',
     alignSelf: 'flex-end',
     flex: 1,
   },
@@ -47,37 +47,38 @@ const useStyles = makeStyles(() => ({
   },
   linkIcons: {
     display: 'flex',
-    alignItems: 'center', 
-  }
+    alignItems: 'center',
+  },
+
 }));
 
-const Navbar = () => {
+const Navbar = (props) => {
 
   const classes = useStyles();
 
   return (
     <AppBar className={classes.nav}>
       <h1 className={classes.logo}>
-        <NavLink 
+        <NavLink
           onClick={() => console.log('open modal')}
           className={classes.link}
           to="/">
           <div className={classes.logoName}>
-            <FingerprintIcon style={{fontSize: 40}} /> 
+            <FingerprintIcon style={{ fontSize: 40 }} />
             Company Name
           </div>
         </NavLink>
       </h1>
       <ul className={classes.ul}>
         <li className={classes.li}>
-          <NavLink 
+          <NavLink
             onClick={() => console.log('open modal')}
             className={classes.link}
             to="/shop">
             <div className={classes.linkIcons}>
-              <StoreIcon/>Shop
-            </div> 
-            </NavLink>
+              <StoreIcon />Shop
+            </div>
+          </NavLink>
         </li>
         <li className={classes.li}>
           <NavLink
@@ -85,19 +86,19 @@ const Navbar = () => {
             className={classes.link}
             to="/contact">
             <div className={classes.linkIcons}>
-              <EmailIcon/>Contact
-            </div> 
-            </NavLink>
+              <EmailIcon />Contact
+            </div>
+          </NavLink>
         </li>
         <li className={classes.li}>
-          <NavLink 
-            onClick={() => console.log('open modal')}
+          <NavLink
+            onClick={props.cartClickListener}
             className={classes.link}
             to="/cart">
             <div className={classes.linkIcons}>
-              <ShoppingCartIcon/>Cart
-            </div> 
-            </NavLink>
+              <ShoppingCartIcon />Cart
+            </div>
+          </NavLink>
         </li>
       </ul>
     </AppBar>
