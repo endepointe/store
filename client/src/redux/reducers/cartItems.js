@@ -1,11 +1,12 @@
-import { ADD_PRODUCT } from "../actionTypes";
+import { ADD_PRODUCT, REMOVE_PRODUCT } from "../actionTypes";
 
 const initialState = {
   allIds: [],
-  byIds: {}
+  byIds: {},
+  item: ''
 };
 
-export default function (state = initialState, action) {
+export default funcion(state = initialState, action) {
   switch (action.type) {
     case ADD_PRODUCT: {
       const { id, content } = action.payload;
@@ -17,22 +18,14 @@ export default function (state = initialState, action) {
           [id]: {
             content,
           }
-        }
+        },
+        item: [...state.allIds, id]
       };
     }
-    // case TOGGLE_TODO: {
-    //   const { id } = action.payload;
-    //   return {
-    //     ...state,
-    //     byIds: {
-    //       ...state.byIds,
-    //       [id]: {
-    //         ...state.byIds[id],
-    //         completed: !state.byIds[id].completed
-    //       }
-    //     }
-    //   };
-    // }
+    case REMOVE_PRODUCT: {
+      // remove the item from the state
+
+    }
     default:
       return state;
   }

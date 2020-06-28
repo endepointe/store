@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const Products = () => {
+const Products = (props) => {
 
   const classes = useStyles();
 
@@ -39,6 +39,7 @@ const Products = () => {
         {products.map((product, i) =>
           <Product
             key={i}
+            cartNotification={props.cartNotification}
             name={product.name}
             price={product.price} />)}
       </Grid>

@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import React,
 {
-  // useState
+  useState
 } from 'react';
 import {
   BrowserRouter,
@@ -65,11 +65,24 @@ const App = () => {
 
   // const [open, setOpen] = useState(false);
   const classes = useStyles();
+  const [itemAdded, setItemAdded] = useState(false);
+  let interval;
+
+  const cartNotification = () => {
+    console.log('added');
+    setItemAdded(true);
+    interval = setTimeout(thing, 1800);
+  }
+
+  const thing = () => {
+    setItemAdded(false);
+    clearTimeout(interval);
+  }
 
   return (
     <BrowserRouter>
       <nav>
-        <Navbar />
+        <Navbar itemAdded={itemAdded} />
       </nav>
       <header className={classes.header}>
         <div className={classes.hero}>
@@ -80,7 +93,7 @@ const App = () => {
       <main>
         <h1 className={classes.featuredProducts}>Featured Products</h1>
         <section>
-          <Products />
+          <Products cartNotification={cartNotification} />
         </section>
       </main>
       <footer className={classes.footer}>

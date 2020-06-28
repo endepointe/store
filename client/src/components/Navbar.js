@@ -58,13 +58,22 @@ const useStyles = makeStyles(() => ({
     paddin: 0,
     margin: '0 auto',
     maxWidth: '500px',
+  },
+  notification: {
+    position: 'absolute',
+    top: '1rem',
+    right: '1rem',
+    zIndex: 10,
+    backgroundColor: 'rgb(21, 163, 8)',
+    borderRadius: '0.2rem',
+    padding: '0.3rem',
   }
 }));
 
-const Navbar = () => {
+const Navbar = (props) => {
 
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [cartOpen, setOpen] = useState(false);
 
   const openCart = () => {
     setOpen(true);
@@ -119,13 +128,17 @@ const Navbar = () => {
           </Link>
         </li>
       </ul>
+      {props.itemAdded ?
+        <div className={classes.notification}>
+          item added to cart
+        </div> : null}
       <Dialog
         aria-labelledby="Cart"
         aria-describedby="Your cart items"
         fullWidth={true}
         className={classes.modal}
         onClose={handleClose}
-        open={open}>
+        open={cartOpen}>
         <CartItemList />
       </Dialog>
     </AppBar>

@@ -49,6 +49,7 @@ const Product = (props) => {
   const addToCart = (e) => {
     e.preventDefault();
     props.addProduct(item);
+    props.cartNotification();
   }
 
   return (
