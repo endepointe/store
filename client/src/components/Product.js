@@ -49,7 +49,6 @@ const Product = (props) => {
   const addToCart = (e) => {
     e.preventDefault();
     props.addProduct(item);
-    console.log(`${item.name} added to cart`);
   }
 
   return (

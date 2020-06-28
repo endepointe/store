@@ -1,4 +1,8 @@
-import React from 'react';
+import React,
+{
+  useState
+} from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
@@ -6,9 +10,10 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import EmailIcon from '@material-ui/icons/Email';
 import StoreIcon from '@material-ui/icons/Store';
 import {
-  NavLink
+  Link,
 } from 'react-router-dom';
-
+import Dialog from '@material-ui/core/Dialog';
+import CartItemList from './CartItemList';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -49,17 +54,30 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
   },
-
+  modal: {
+    paddin: 0,
+    margin: '0 auto',
+    maxWidth: '500px',
+  }
 }));
 
-const Navbar = (props) => {
+const Navbar = () => {
 
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const openCart = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
 
   return (
     <AppBar className={classes.nav}>
       <h1 className={classes.logo}>
-        <NavLink
+        <Link
           onClick={() => console.log('open modal')}
           className={classes.link}
           to="/">
@@ -67,42 +85,51 @@ const Navbar = (props) => {
             <FingerprintIcon style={{ fontSize: 40 }} />
             Company Name
           </div>
-        </NavLink>
+        </Link>
       </h1>
       <ul className={classes.ul}>
         <li className={classes.li}>
-          <NavLink
+          <Link
             onClick={() => console.log('open modal')}
             className={classes.link}
             to="/shop">
             <div className={classes.linkIcons}>
               <StoreIcon />Shop
             </div>
-          </NavLink>
+          </Link>
         </li>
         <li className={classes.li}>
-          <NavLink
+          <Link
             onClick={() => console.log('open modal')}
             className={classes.link}
             to="/contact">
             <div className={classes.linkIcons}>
               <EmailIcon />Contact
             </div>
-          </NavLink>
+          </Link>
         </li>
         <li className={classes.li}>
-          <NavLink
-            onClick={props.cartClickListener}
+          <Link
+            onClick={openCart}
             className={classes.link}
             to="/cart">
             <div className={classes.linkIcons}>
               <ShoppingCartIcon />Cart
             </div>
-          </NavLink>
+          </Link>
         </li>
       </ul>
+      <Dialog
+        aria-labelledby="Cart"
+        aria-describedby="Your cart items"
+        fullWidth={true}
+        className={classes.modal}
+        onClose={handleClose}
+        open={open}>
+        <CartItemList />
+      </Dialog>
     </AppBar>
   )
 }
 
-export default Navbar;
+export default connect(null, {})(Navbar);
