@@ -13,7 +13,7 @@ export const addProduct = content => ({
 export const removeProduct = content => ({
   type: REMOVE_PRODUCT,
   payload: {
-    id: --nextCartItemId,
+    id: content.id,
     content
   }
 })

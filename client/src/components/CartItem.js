@@ -31,7 +31,8 @@ const CartItem = (props) => {
   const classes = useStyles();
 
   const removeItem = () => {
-    // props.removeProduct(props.item);
+    console.log(props.item);
+    props.removeProduct(props.item);
   }
   return (
     <li className={classes.item}>
