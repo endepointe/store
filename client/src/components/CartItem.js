@@ -47,10 +47,12 @@ const CartItem = (props) => {
 
   const addItem = () => {
     props.addProduct(props.item.content);
+    // props.updateTotal(props.item.content.price);
+    props.updateTotal();
   }
 
   const removeItem = () => {
-    console.log(props.item);
+    // console.log(props.item);
     props.removeProduct(props.item);
   }
 

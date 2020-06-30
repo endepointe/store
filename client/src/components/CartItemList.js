@@ -1,7 +1,11 @@
-import React from 'react';
+import React,
+{
+  useState
+} from 'react';
 import { makeStyles } from '@material-ui/styles';
 import CartItem from './CartItem';
 import { connect } from 'react-redux';
+import { getCartTotal } from '../redux/actions';
 import { getCartItems } from '../redux/selectors';
 import Button from '@material-ui/core/Button';
 
@@ -16,7 +20,7 @@ const useStyles = makeStyles({
     backgroundColor: '#FFF',
     borderRadius: '0.2rem',
     padding: 0,
-    overflowY: 'hidden',
+    overflowY: 'auto',
   },
   cartDesc: {
     width: '100%',
@@ -68,8 +72,17 @@ const useStyles = makeStyles({
   }
 });
 
-const CartItemList = ({ cartItems }) => {
+const CartItemList = ({ cartItems, getCartTotal }) => {
+
   const classes = useStyles();
+  const [total, setTotal] = useState(0);
+
+  const updateTotal = () => {
+    let things = getCartTotal(cartItems);
+    console.log(things)
+    // setTotal(getCartTotal());
+  }
+
   return (
     <div className={classes.root}>
       <div className={classes.cartDesc}>
@@ -79,10 +92,14 @@ const CartItemList = ({ cartItems }) => {
       <ul className={classes.cart}>
         {cartItems && cartItems.length
           ? cartItems.map((item, index) => {
-            return <CartItem key={item.id} item={item} />
+            return <CartItem
+              updateTotal={updateTotal}
+              key={item.id}
+              item={item} />
           })
           : <div className={classes.emptyCart}>Your cart is empty.</div>}
       </ul>
+      <h3>{`Cart total: ${total}`}</h3>
       <div className={classes.cartButtons}>
         <Button className={classes.checkoutButton}>Checkout</Button>
         <Button className={classes.continueButton}>Continue Shopping</Button>
@@ -103,4 +120,6 @@ const CartItemList = ({ cartItems }) => {
 // export default connect(mapStateToProps)(CartItemList);
 
 export default connect(
-  state => ({ cartItems: getCartItems(state) }))(CartItemList);
+  state => ({ cartItems: getCartItems(state) }),
+  { getCartTotal }
+)(CartItemList);

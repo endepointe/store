@@ -4,7 +4,7 @@ import React,
   useState
 } from 'react';
 import { connect } from 'react-redux';
-import { addProduct } from '../redux/actions';
+import { addProduct, getCartTotal } from '../redux/actions';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -48,7 +48,9 @@ const Product = (props) => {
 
   const addToCart = (e) => {
     e.preventDefault();
+    console.log(item)
     props.addProduct(item);
+    props.getCartTotal(item);
     props.cartNotification();
   }
 
@@ -70,5 +72,5 @@ const Product = (props) => {
 
 export default connect(
   null,
-  { addProduct }
+  { addProduct, getCartTotal }
 )(Product);
