@@ -5,9 +5,9 @@ import React,
 import { makeStyles } from '@material-ui/styles';
 import CartItem from './CartItem';
 import { connect } from 'react-redux';
-import { getCartTotal } from '../redux/actions';
 import { getCartItems, getTotal } from '../redux/selectors';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 const useStyles = makeStyles({
   root: {
@@ -76,19 +76,31 @@ const useStyles = makeStyles({
   }
 });
 
-const CartItemList = ({ cartTotal, cartItems, getCartTotal }) => {
+const CartItemList = ({ cartTotal, cartItems }) => {
 
   const classes = useStyles();
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    setTotal(cartTotal);
-  });
+    setTotal(parseFloat(cartTotal));
+    // let t = parseFloat(0);
+    // for (let i = 0; i < cartItems.length; ++i) {
+    //   t += cartItems[i].content.price;
+    // }
+    // setTotal(t);
+  }, [cartTotal, cartItems]);
 
   const updateTotal = () => {
-    getCartTotal();
-    // console.log(cartTotal);
     setTotal(cartTotal);
+  }
+
+  const checkOut = () => {
+    axios.post('/api/create-payment-intent', {
+      total: cartTotal,
+      items: cartItems,
+    })
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
   }
 
   return (
@@ -109,7 +121,9 @@ const CartItemList = ({ cartTotal, cartItems, getCartTotal }) => {
       </ul>
       <h3 className={classes.cartTotal}>{`Cart total: $${total}`}</h3>
       <div className={classes.cartButtons}>
-        <Button className={classes.checkoutButton}>Checkout</Button>
+        <Button
+          onClick={checkOut}
+          className={classes.checkoutButton}>Checkout</Button>
         <Button className={classes.continueButton}>Continue Shopping</Button>
       </div>
     </div>
@@ -134,5 +148,5 @@ export default connect(
     cartItems: getCartItems(state),
     cartTotal: getTotal(state)
   }),
-  { getCartTotal }
+  null
 )(CartItemList);

@@ -4,7 +4,7 @@ import React,
   useState
 } from 'react';
 import { connect } from 'react-redux';
-import { addProduct, getCartTotal } from '../redux/actions';
+import { addProduct } from '../redux/actions';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -42,14 +42,13 @@ const Product = (props) => {
   useEffect(() => {
     setItem({
       name: props.name,
-      price: props.price
+      price: parseFloat(props.price)
     });
   }, [props.name, props.price]);
 
   const addToCart = (e) => {
     e.preventDefault();
     props.addProduct(item);
-    props.getCartTotal(item);
     props.cartNotification();
   }
 
@@ -58,8 +57,8 @@ const Product = (props) => {
       <Paper className={classes.paper}>
         <div className={classes.productImg}></div>
         <form>
-          <p>Item: {props.name}</p>
-          <p>Price: {props.price}</p>
+          <p>Item: {item.name}</p>
+          <p>Price: {item.price}</p>
           <Button
             onClick={addToCart}
             className={classes.button}>Add to cart</Button>
@@ -71,5 +70,5 @@ const Product = (props) => {
 
 export default connect(
   null,
-  { addProduct, getCartTotal }
+  { addProduct }
 )(Product);

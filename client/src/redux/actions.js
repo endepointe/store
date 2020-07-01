@@ -1,7 +1,6 @@
 import {
   ADD_PRODUCT,
   REMOVE_PRODUCT,
-  GET_TOTAL
 } from './actionTypes';
 
 let nextCartItemId = 0;
@@ -20,8 +19,4 @@ export const removeProduct = content => ({
     id: content.id,
     content
   }
-});
-
-export const getCartTotal = () => ({
-  type: GET_TOTAL,
 });

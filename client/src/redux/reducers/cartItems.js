@@ -1,6 +1,5 @@
 import {
   ADD_PRODUCT,
-  GET_TOTAL,
   REMOVE_PRODUCT
 } from "../actionTypes";
 
@@ -40,14 +39,6 @@ export default function (state = initialState, action) {
           }
         },
         total: state.total -= content.content.price
-      }
-    }
-    case GET_TOTAL: {
-      // this does nothing
-      // console.log('cart total: ' + state.total)
-      // console.log([state])
-      return {
-        ...state
       }
     }
     default:
