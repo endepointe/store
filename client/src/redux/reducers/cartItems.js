@@ -6,14 +6,14 @@ import {
 const initialState = {
   allIds: [],
   byIds: {},
-  total: 0
+  total: parseFloat(0)
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case ADD_PRODUCT: {
       const { id, content } = action.payload;
-      // console.log(content, id)
+      // console.log(typeof state.total);
       return {
         ...state,
         allIds: [...state.allIds, id],
@@ -23,12 +23,12 @@ export default function (state = initialState, action) {
             content,
           }
         },
-        total: state.total += content.price
+        total: state.total += parseFloat(content.price)
       };
     }
     case REMOVE_PRODUCT: {
       const { id, content } = action.payload;
-      // console.log(content.content.price);
+      // console.log(state.total);
       return {
         ...state,
         allIds: state.allIds.filter(id => id !== action.payload.id),
@@ -38,7 +38,7 @@ export default function (state = initialState, action) {
             content,
           }
         },
-        total: state.total -= content.content.price
+        total: state.total -= parseFloat(content.content.price)
       }
     }
     default:

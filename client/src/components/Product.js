@@ -42,7 +42,7 @@ const Product = (props) => {
   useEffect(() => {
     setItem({
       name: props.name,
-      price: parseFloat(props.price)
+      price: parseFloat(props.price).toFixed(2)
     });
   }, [props.name, props.price]);
 
