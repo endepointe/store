@@ -69,7 +69,7 @@ const App = () => {
   let interval;
 
   const cartNotification = () => {
-    console.log('added');
+    // console.log('added');
     setItemAdded(true);
     interval = setTimeout(thing, 1800);
   }

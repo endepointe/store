@@ -14,7 +14,7 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case ADD_PRODUCT: {
       const { id, content } = action.payload;
-      console.log(content, id)
+      // console.log(content, id)
       return {
         ...state,
         allIds: [...state.allIds, id],
@@ -28,9 +28,8 @@ export default function (state = initialState, action) {
       };
     }
     case REMOVE_PRODUCT: {
-      // remove the item from the state
       const { id, content } = action.payload;
-      console.log(action, id);
+      // console.log(content.content.price);
       return {
         ...state,
         allIds: state.allIds.filter(id => id !== action.payload.id),
@@ -40,16 +39,15 @@ export default function (state = initialState, action) {
             content,
           }
         },
-        total: state.total -= content.price
+        total: state.total -= content.content.price
       }
     }
-    case GET_TOTL: {
-      const { content } = action.payload;
-      console.log('cart total: ' + state.total)
-      console.log([state])
+    case GET_TOTAL: {
+      // this does nothing
+      // console.log('cart total: ' + state.total)
+      // console.log([state])
       return {
-        ...state,
-        st: state.total
+        ...state
       }
     }
     default:

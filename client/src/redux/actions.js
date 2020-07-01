@@ -22,9 +22,6 @@ export const removeProduct = content => ({
   }
 });
 
-export const getCartTotal = content => ({
+export const getCartTotal = () => ({
   type: GET_TOTAL,
-  payload: {
-    content
-  }
-})
+});

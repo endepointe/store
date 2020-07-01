@@ -1,12 +1,12 @@
 import React,
 {
-  useState
+  useState, useEffect
 } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import CartItem from './CartItem';
 import { connect } from 'react-redux';
 import { getCartTotal } from '../redux/actions';
-import { getCartItems } from '../redux/selectors';
+import { getCartItems, getTotal } from '../redux/selectors';
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
@@ -69,18 +69,26 @@ const useStyles = makeStyles({
     height: '100%',
     margin: '30% auto 0 auto',
     textAlign: 'center',
+  },
+  cartTotal: {
+    textAlign: 'right',
+    marginRight: '2rem',
   }
 });
 
-const CartItemList = ({ cartItems, getCartTotal }) => {
+const CartItemList = ({ cartTotal, cartItems, getCartTotal }) => {
 
   const classes = useStyles();
   const [total, setTotal] = useState(0);
 
+  useEffect(() => {
+    setTotal(cartTotal);
+  });
+
   const updateTotal = () => {
-    let things = getCartTotal(cartItems);
-    console.log(things)
-    // setTotal(getCartTotal());
+    getCartTotal();
+    // console.log(cartTotal);
+    setTotal(cartTotal);
   }
 
   return (
@@ -99,7 +107,7 @@ const CartItemList = ({ cartItems, getCartTotal }) => {
           })
           : <div className={classes.emptyCart}>Your cart is empty.</div>}
       </ul>
-      <h3>{`Cart total: ${total}`}</h3>
+      <h3 className={classes.cartTotal}>{`Cart total: $${total}`}</h3>
       <div className={classes.cartButtons}>
         <Button className={classes.checkoutButton}>Checkout</Button>
         <Button className={classes.continueButton}>Continue Shopping</Button>
@@ -109,7 +117,7 @@ const CartItemList = ({ cartItems, getCartTotal }) => {
 }
 
 // const mapStateToProps = state => {
-//   const { byIds, allIds } = state.cartItems || {};
+//   const { byIds, allIds, total } = state.cartItems || {};
 //   const cartItems =
 //     allIds && allIds.length
 //       ? allIds.map(id => (byIds ? { ...byIds[id], id } : null))
@@ -117,9 +125,14 @@ const CartItemList = ({ cartItems, getCartTotal }) => {
 //   return { cartItems };
 // }
 // https://react-redux.js.org/introduction/basic-tutorial#common-ways-of-calling-connect
-// export default connect(mapStateToProps)(CartItemList);
+// export default connect(
+//   mapStateToProps,
+//   { getCartTotal })(CartItemList);
 
 export default connect(
-  state => ({ cartItems: getCartItems(state) }),
+  state => ({
+    cartItems: getCartItems(state),
+    cartTotal: getTotal(state)
+  }),
   { getCartTotal }
 )(CartItemList);

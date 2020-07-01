@@ -8,3 +8,7 @@ export const getCartItemById = (store, id) =>
 
 export const getCartItems = store =>
   getCartItemList(store).map(id => getCartItemById(store, id));
+
+export const getTotal = store => {
+  return store.cartItems.total;
+}

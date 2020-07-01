@@ -48,7 +48,6 @@ const Product = (props) => {
 
   const addToCart = (e) => {
     e.preventDefault();
-    console.log(item)
     props.addProduct(item);
     props.getCartTotal(item);
     props.cartNotification();

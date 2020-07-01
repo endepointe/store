@@ -54,6 +54,7 @@ const CartItem = (props) => {
   const removeItem = () => {
     // console.log(props.item);
     props.removeProduct(props.item);
+    props.updateTotal();
   }
 
   return (
