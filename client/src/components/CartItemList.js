@@ -112,7 +112,7 @@ const CartItemList = ({ cartTotal, cartItems }) => {
         isShopping(false);
         console.log(response)
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log("ERR: " + error));
     // axios.get('/api/secret', {
     //   params: {
     //     total: cartTotal,
