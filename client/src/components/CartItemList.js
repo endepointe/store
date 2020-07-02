@@ -7,6 +7,10 @@ import CartItem from './CartItem';
 import { connect } from 'react-redux';
 import { getCartItems, getTotal } from '../redux/selectors';
 import Button from '@material-ui/core/Button';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+// import CheckoutForm from './CheckoutForm';
+
 import axios from 'axios';
 
 const useStyles = makeStyles({
@@ -15,8 +19,8 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     width: '100%',
     maxWidth: '500px',
-    height: '70vh',
-    margin: '2rem auto 0 auto',
+    height: 'auto',
+    margin: '0.2rem auto 0 auto',
     backgroundColor: '#FFF',
     borderRadius: '0.2rem',
     padding: 0,
@@ -67,7 +71,8 @@ const useStyles = makeStyles({
   emptyCart: {
     width: '100%',
     height: '100%',
-    margin: '30% auto 0 auto',
+    // margin: '30% auto 0 auto',
+    margin: 'auto',
     textAlign: 'center',
   },
   cartTotal: {
@@ -76,13 +81,16 @@ const useStyles = makeStyles({
   }
 });
 
+const stripePromise = loadStripe("pk_test_292qMBakw1h8tuW6CIREsR8P");
+
 const CartItemList = ({ cartTotal, cartItems }) => {
 
   const classes = useStyles();
   const [total, setTotal] = useState(0);
+  const [stillShopping, isShopping] = useState(true);
 
   useEffect(() => {
-    setTotal(parseFloat(cartTotal));
+    setTotal(parseFloat(cartTotal).toFixed(2));
     // let t = parseFloat(0);
     // for (let i = 0; i < cartItems.length; ++i) {
     //   t += cartItems[i].content.price;
@@ -95,37 +103,61 @@ const CartItemList = ({ cartTotal, cartItems }) => {
   }
 
   const checkOut = () => {
+    console.log(cartItems)
     axios.post('/api/create-payment-intent', {
       total: cartTotal,
       items: cartItems,
     })
-      .then((response) => console.log(response))
+      .then((response) => {
+        isShopping(false);
+        console.log(response)
+      })
       .catch((error) => console.log(error));
+    // axios.get('/api/secret', {
+    //   params: {
+    //     total: cartTotal,
+    //     items: cartItems,
+    //   }
+    // })
+    //   .then(response => console.log(response))
+    //   .catch(error => console.log(error));
   }
 
   return (
     <div className={classes.root}>
-      <div className={classes.cartDesc}>
-        <h3 className={classes.itemTitle}>Item</h3>
-        <h3 className={classes.itemPrice}>Price</h3>
-      </div>
-      <ul className={classes.cart}>
-        {cartItems && cartItems.length
-          ? cartItems.map((item, index) => {
-            return <CartItem
-              updateTotal={updateTotal}
-              key={item.id}
-              item={item} />
-          })
-          : <div className={classes.emptyCart}>Your cart is empty.</div>}
-      </ul>
+      {stillShopping ?
+        <div className={classes.cartDesc}>
+          <h3 className={classes.itemTitle}>Item</h3>
+          <h3 className={classes.itemPrice}>Price</h3>
+        </div>
+        : null}
+      {stillShopping ?
+        <ul className={classes.cart}>
+          {cartItems && cartItems.length
+            ? cartItems.map((item, index) => {
+              return <CartItem
+                updateTotal={updateTotal}
+                key={item.id}
+                item={item} />
+            })
+            : <div className={classes.emptyCart}>Your cart is empty.</div>}
+        </ul>
+        : null}
       <h3 className={classes.cartTotal}>{`Cart total: $${total}`}</h3>
-      <div className={classes.cartButtons}>
-        <Button
-          onClick={checkOut}
-          className={classes.checkoutButton}>Checkout</Button>
-        <Button className={classes.continueButton}>Continue Shopping</Button>
-      </div>
+      {stillShopping ?
+        <div className={classes.cartButtons}>
+          <Button
+            onClick={checkOut}
+            className={classes.checkoutButton}>Checkout</Button>
+          <Button className={classes.continueButton}>Continue Shopping</Button>
+        </div>
+        : null}
+      {
+        stillShopping ? null :
+          <Elements stripe={stripePromise}>
+
+          </Elements>
+      }
     </div>
   );
 }

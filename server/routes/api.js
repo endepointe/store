@@ -51,13 +51,11 @@ router.get('/get-products', async (req, res) => {
 const calculateOrderAmount = items => {
   let total = parseFloat(0);
   for (let i = 0; i < items.length; ++i) {
-    total += items[i].content.price;
+    total += parseFloat(items[i].content.price);
   }
   return total * 100;
 }
 router.post('/create-payment-intent', async (req, res) => {
-  console.log(req.body.total);
-  console.log(req.body.items);
   const { total, items } = req.body;
   if ((total * 100) === calculateOrderAmount(items)) {
     const paymentIntent = await stripe.paymentIntents.create({
@@ -79,9 +77,24 @@ router.post('/create-payment-intent', async (req, res) => {
 //
 ////
 //////
-router.get('/secret', async (req, res) => {
-
-});
+// router.get('/secret', async (req, res) => {
+// const { total, items } = req.query;
+// if ((total * 100) === calculateOrderAmount(items)) {
+//   const paymentIntent = await stripe.paymentIntents.create({
+//     amount: calculateOrderAmount(items),
+//     currency: 'usd',
+//     metadata: { integration_check: 'accept_a_payment' }
+//   });
+//   console.log(paymentIntent);
+//   res.status(200).send({
+//     // publishableKey: process.env.STRIPE_TEST_PUBLISHABLE_KEY,
+//     client_secret: paymentIntent.client_secret
+//   });
+// } else {
+//   res.status(500).send('There is an issue with your cart, try again.');
+// }
+// res.json({ clientSecret: paymentIntent.clientSecret });
+// });
 //////
 ////
 //

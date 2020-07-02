@@ -7,6 +7,7 @@ const app = express();
 const port = process.env.port || 4002;
 
 app.use(express.json());
+// app.use(urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, '../client/build')));
 
