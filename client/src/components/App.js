@@ -89,6 +89,8 @@ const App = () => {
           <FingerprintIcon style={{ fontSize: 120 }} />
           <p className={classes.heroMessage}>Highlight Message</p>
         </div>
+        <p>Integrated payment gateway.</p>
+        <p>Personalized builds to fit your business needs.</p>
       </header>
       <main>
         <h1 className={classes.featuredProducts}>Featured Products</h1>

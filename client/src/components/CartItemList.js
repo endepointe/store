@@ -9,7 +9,7 @@ import { getCartItems, getTotal } from '../redux/selectors';
 import Button from '@material-ui/core/Button';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-// import CheckoutForm from './CheckoutForm';
+import CheckoutForm from './CheckoutForm';
 
 import axios from 'axios';
 
@@ -78,16 +78,29 @@ const useStyles = makeStyles({
   cartTotal: {
     textAlign: 'right',
     marginRight: '2rem',
+  },
+  testCardDisclosure: {
+    width: '90%',
+    margin: '0 auto',
   }
 });
 
 const stripePromise = loadStripe("pk_test_292qMBakw1h8tuW6CIREsR8P");
+
+const ELEMENTS_OPTIONS = {
+  fonts: [
+    {
+      cssSrc: 'https://fonts.googleapis.com/css?family=Roboto',
+    },
+  ],
+};
 
 const CartItemList = ({ cartTotal, cartItems }) => {
 
   const classes = useStyles();
   const [total, setTotal] = useState(0);
   const [stillShopping, isShopping] = useState(true);
+  const [cs, setCs] = useState('');
 
   useEffect(() => {
     setTotal(parseFloat(cartTotal).toFixed(2));
@@ -110,7 +123,8 @@ const CartItemList = ({ cartTotal, cartItems }) => {
     })
       .then((response) => {
         isShopping(false);
-        console.log(response)
+        console.log(response);
+        setCs(response.data.clientSecret);
       })
       .catch((error) => console.log("ERR: " + error));
     // axios.get('/api/secret', {
@@ -144,6 +158,30 @@ const CartItemList = ({ cartTotal, cartItems }) => {
         </ul>
         : null}
       <h3 className={classes.cartTotal}>{`Cart total: $${total}`}</h3>
+      <div>
+        <div className={classes.testCardDisclosure}>
+          <p>
+            In test mode. Real cards will not be processed.
+        </p>
+          <p>
+            To see how your card will be processed, use the following test card numbers:
+        </p>
+        </div>
+        <ul>
+          <li>
+            <h4><strong>Payments that don't require authenication:</strong></h4>
+            <p>4242 4242 4242 4242</p>
+          </li>
+          <li>
+            <h4><strong>Payments that require authenication:</strong></h4>
+            <p>4000 0025 0000 3155</p>
+          </li>
+          <li>
+            <h4><strong>Payments that result in decline codes:</strong></h4>
+            <p>4000 0000 0000 9995</p>
+          </li>
+        </ul>
+      </div>
       {stillShopping ?
         <div className={classes.cartButtons}>
           <Button
@@ -154,8 +192,8 @@ const CartItemList = ({ cartTotal, cartItems }) => {
         : null}
       {
         stillShopping ? null :
-          <Elements stripe={stripePromise}>
-
+          <Elements options={ELEMENTS_OPTIONS} stripe={stripePromise}>
+            <CheckoutForm cs={cs} total={cartTotal} />
           </Elements>
       }
     </div>
