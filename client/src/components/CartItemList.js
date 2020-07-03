@@ -169,11 +169,11 @@ const CartItemList = ({ cartTotal, cartItems }) => {
         </div>
         <ul>
           <li>
-            <h4><strong>Payments that don't require authenication:</strong></h4>
+            <h4><strong>Payments that don't require authentication:</strong></h4>
             <p>4242 4242 4242 4242</p>
           </li>
           <li>
-            <h4><strong>Payments that require authenication:</strong></h4>
+            <h4><strong>Payments that require authentication:</strong></h4>
             <p>4000 0025 0000 3155</p>
           </li>
           <li>
